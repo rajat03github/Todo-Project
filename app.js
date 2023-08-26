@@ -1,6 +1,6 @@
 import express from "express";
 import connectDB from "./database.js";
-import User from "./models/users.js";
+import userRouter from "./routes/userRoutes.js";
 
 //We can only access GET req from the browser
 
@@ -10,36 +10,11 @@ const app = express();
 //using middleware to access req.body for json data
 app.use(express.json());
 
+//for accessing UserRouters and wer can use prefix for routes
+app.use("/users", userRouter);
+
 app.get("/", (req, res) => {
   res.send("Nice Working");
-});
-
-app.get("/users/all", async (req, res) => {
-  const users = await User.find({});
-
-  res.json({
-    success: true,
-    users: users, //an array that is fetched from database
-  });
-});
-
-app.post("/users/new", async (req, res) => {
-  const { email, password, name } = req.body; //for non - static data
-
-  try {
-    await User.create({
-      name: name,
-      email: email,
-      password: password,
-    });
-
-    res.json({
-      success: true,
-      message: "Success",
-    });
-  } catch (error) {
-    console.log(error);
-  }
 });
 
 app.listen(4000, () => {
