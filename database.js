@@ -19,12 +19,9 @@ import mongoose from "mongoose";
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(
-      "mongodb+srv://rajat_03:hashtag2001@backend.8ygd85r.mongodb.net/",
-      {
-        dbName: "nodeApi",
-      }
-    );
+    await mongoose.connect(process.env.MONGO_URI, {
+      dbName: "nodeApi",
+    });
     console.log("DB CONNECTED SUCCESS");
   } catch (error) {
     console.log(error);

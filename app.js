@@ -1,11 +1,11 @@
 import express from "express";
-import connectDB from "./database.js";
 import userRouter from "./routes/userRoutes.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 //We can only access GET req from the browser
 
-connectDB();
-const app = express();
+export const app = express();
 
 //using middleware to access req.body for json data
 app.use(express.json());
@@ -15,8 +15,4 @@ app.use("/users", userRouter);
 
 app.get("/", (req, res) => {
   res.send("Nice Working");
-});
-
-app.listen(4000, () => {
-  console.log("Server is WOrking");
 });
