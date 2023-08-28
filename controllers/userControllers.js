@@ -41,4 +41,52 @@ const special = async (req, res) => {
   }
 };
 
-export { createNewUser, getAllUsers, special };
+const getUserDetails = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findById(id);
+
+    res.json({
+      user: user,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const updateUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findById(id);
+
+    res.json({
+      message: "updated",
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const deleteUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findById(id);
+
+    await user.deleteOne();
+
+    res.json({
+      message: "deleted",
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export {
+  createNewUser,
+  getAllUsers,
+  special,
+  updateUser,
+  getUserDetails,
+  deleteUser,
+};
