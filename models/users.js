@@ -13,7 +13,7 @@ const Schmea = new mongoose.Schema(
     },
     password: {
       type: String,
-      select: false,
+      select: false, // can't select password directly as User.passwords
       required: true,
     },
   },
