@@ -8,10 +8,10 @@ dotenv.config();
 export const app = express();
 
 //using middleware to access req.body for json data
-app.use(express.json());
+app.use(express.json()); //! use this before routes
 
 //for accessing UserRouters and wer can use prefix for routes
-app.use("/users", userRouter);
+app.use("/api/users", userRouter);
 
 app.get("/", (req, res) => {
   res.send("Nice Working");

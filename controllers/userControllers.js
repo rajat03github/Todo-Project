@@ -1,92 +1,45 @@
 import User from "../models/users.js";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
-const createNewUser = async (req, res) => {
-  const { email, password, name } = req.body; //for non - static data
+const getAllUsers = async (req, res) => {};
 
-  try {
-    await User.create({
-      name: name,
-      email: email,
-      password: password,
+const registerUser = async (req, res) => {
+  const { name, email, password } = req.body;
+
+  const user = await User.findOne({ email });
+
+  if (user) {
+    return res.status(404).json({
+      success: false,
+      message: "User already exists",
     });
-
-    res.status(201).cookie("temp", "value").json({
-      success: true,
-      message: "Success",
-    });
-  } catch (error) {
-    console.log(error);
   }
-};
+  const hashedPassword = await bcrypt.hash(password, 10);
 
-const getAllUsers = async (req, res) => {
-  const users = await User.find({});
-
-  const { keyword } = req.query; //Query
-  console.log(keyword);
-
-  res.json({
-    success: true,
-    users: users, //an array that is fetched from database
+  const newUser = await User.create({
+    name,
+    email,
+    password: hashedPassword,
   });
-};
+  //send cookie here to access registered user directly login
 
-const special = async (req, res) => {
-  try {
-    res.json({
-      message: "Just Jocking",
+  const token = jwt.sign({ _id: newUser._id }, process.env.JWT_SECRET);
+
+  res
+    .status(201)
+    .cookie("token", token, {
+      httpOnly: true,
+      maxAge: 1000 * 60 * 15, //15 minutes
+    })
+    .json({
+      success: "true",
+      message: "Registered Successfully",
     });
-  } catch (error) {
-    console.log(error);
-  }
 };
 
-const getUserDetails = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const user = await User.findById(id);
+const loginUser = async (req, res, next) => {};
 
-    res.json({
-      user: user,
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
+const getUserDetails = async (req, res) => {};
 
-const updateUser = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const user = await User.findById(id);
-
-    res.json({
-      message: "updated",
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-const deleteUser = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const user = await User.findById(id);
-
-    await user.deleteOne();
-
-    res.json({
-      message: "deleted",
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export {
-  createNewUser,
-  getAllUsers,
-  special,
-  updateUser,
-  getUserDetails,
-  deleteUser,
-};
+export { getAllUsers, registerUser, loginUser, getUserDetails };

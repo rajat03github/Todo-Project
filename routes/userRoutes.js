@@ -1,34 +1,32 @@
 import express from "express";
 import {
-  createNewUser,
-  deleteUser,
+  registerUser,
   getAllUsers,
   getUserDetails,
-  special,
-  updateUser,
+  loginUser,
 } from "../controllers/userControllers.js";
 
 const router = express.Router();
 
 router.get("/all", getAllUsers);
 
-router.post("/new", createNewUser);
+router.post("/new", registerUser);
+router.post("/login", loginUser);
 
 // /userid/params.id
 // /userid/rajat      /:id can be also /:userId or /:anything because it is getting from params
-router.get("/userid/special", special);
+// router.get("/userid/special", special);
 
 //! this is a dynamic route and should be kept in the last
 
+router.route("/userid/:id").get(getUserDetails);
+
 // * chaining can aslo be done like this for common route
+/*
 router
   .route("/userid/:id")
   .get(getUserDetails)
   .put(updateUser)
   .delete(deleteUser);
-
-// router.get("/userid/:id", getUserDetails);
-// router.put("/userid/:id", updateUser);
-// router.delete("/userid/:id", deleteUser);
-
+*/
 export default router;

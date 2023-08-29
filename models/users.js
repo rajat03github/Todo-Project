@@ -1,10 +1,26 @@
 import mongoose from "mongoose";
 
-const Schmea = new mongoose.Schema({
-  name: String,
-  emai: String,
-  password: String,
-});
+const Schmea = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      unique: true,
+      required: true,
+    },
+    password: {
+      type: String,
+      select: false,
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
 const User = mongoose.model("User", Schmea);
 
