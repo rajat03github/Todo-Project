@@ -19,6 +19,10 @@ const Schmea = new mongoose.Schema(
       ref: "User", //User Collection
       required: true,
     },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
   },
   {
     timestamps: true,
