@@ -55,13 +55,25 @@ const loginUser = async (req, res, next) => {
     res.send(error);
   }
 };
+const logoutUser = (req, res, next) => {
+  res
+    .status(200)
+    .cookie("token", "", {
+      maxAge: new Date(Date.now()),
+    })
+    .json({
+      success: "true",
+      user: req.user,
+    });
+};
 
 const getMyProfile = (req, res) => {
-  //The Middleware is at auth.js
+  //* - The Middleware is at Middlewares / auth.js
+
   res.status(200).json({
     success: true,
-    user: req.user,
+    user: req.user, //accessing from req object after login
   });
 };
 
-export { getAllUsers, registerUser, loginUser, getMyProfile };
+export { getAllUsers, registerUser, loginUser, getMyProfile, logoutUser };
