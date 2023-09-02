@@ -56,6 +56,12 @@ const loginUser = async (req, res, next) => {
   }
 };
 
-const getUserDetails = async (req, res) => {};
+const getMyProfile = (req, res) => {
+  //The Middleware is at auth.js
+  res.status(200).json({
+    success: true,
+    user: req.user,
+  });
+};
 
-export { getAllUsers, registerUser, loginUser, getUserDetails };
+export { getAllUsers, registerUser, loginUser, getMyProfile };
