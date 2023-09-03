@@ -1,7 +1,6 @@
 import express from "express";
 import {
   registerUser,
-  getAllUsers,
   loginUser,
   getMyProfile,
   logoutUser,
@@ -9,8 +8,6 @@ import {
 import { isAuthenticated } from "../middlewares/Auth.js";
 
 const router = express.Router();
-
-router.get("/all", getAllUsers);
 
 router.post("/new", registerUser);
 router.post("/login", loginUser);

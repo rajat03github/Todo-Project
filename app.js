@@ -3,6 +3,7 @@ import userRouter from "./routes/userRoutes.js";
 import taskRoutes from "./routes/taskRoutes.js";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
+import { errorMiddleware } from "./middlewares/error.js";
 dotenv.config();
 
 //We can only access GET req from the browser
@@ -19,3 +20,6 @@ app.use("/api/tasks", taskRoutes);
 app.get("/", (req, res) => {
   res.send("Nice Working");
 });
+
+//error middleware
+app.use(errorMiddleware);

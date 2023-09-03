@@ -2,8 +2,6 @@ import User from "../models/users.js";
 import bcrypt from "bcrypt";
 import { sendCookie } from "../utils/features.js";
 
-const getAllUsers = async (req, res) => {};
-
 const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -36,10 +34,7 @@ const loginUser = async (req, res, next) => {
     const user = await User.findOne({ email }).select("+password"); //all data + password
 
     if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: "Invalid Email/Password",
-      });
+      return next(new ErrorHandler("Invalid Email/Password", 404));
     }
 
     const isMatched = await bcrypt.compare(password, user.password);
@@ -76,4 +71,4 @@ const getMyProfile = (req, res) => {
   });
 };
 
-export { getAllUsers, registerUser, loginUser, getMyProfile, logoutUser };
+export { registerUser, loginUser, getMyProfile, logoutUser };
