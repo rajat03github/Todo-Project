@@ -1,8 +1,10 @@
 //error handler in express throught middleware
 //!takes error as first middleware with next  -- errormiddleware
-//!uses next(error) in anywhere
+//!uses next( new Error()) in anywhere to call the middleware and Error Class
 
 class ErrorHandler extends Error {
+  //? takes message and StatusCode
+
   constructor(message, statusCode) {
     super(message); //Parent Class Constructor ie Error Constructor
     this.statusCode = statusCode;

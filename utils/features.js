@@ -8,6 +8,10 @@ const sendCookie = (newUser, res, message) => {
     .cookie("token", token, {
       httpOnly: true,
       maxAge: 1000 * 60 * 15, //15 minutes
+      //works in deployement
+      //if Development then false else true
+      sameSite: process.env.NODE_ENV === "Development" ? "lax" : "none",
+      secure: process.env.NODE_ENV === "Development" ? false : true,
     })
     .json({
       success: "true",
