@@ -7,7 +7,6 @@ import cookieParser from "cookie-parser";
 import { errorMiddleware } from "./middlewares/error.js";
 dotenv.config();
 import cors from "cors";
-import userRoutes from "./routes/userROUTES.js";
 //We can only access GET req from the browser
 
 export const app = express();
@@ -28,8 +27,6 @@ app.use(
 //for accessing UserRouters and wer can use prefix for routes
 
 app.use("/api/tasks", taskRoutes);
-
-app.use("/api/users", userRoutes);
 
 app.get("/", (req, res) => {
   res.send("Nice Working");
