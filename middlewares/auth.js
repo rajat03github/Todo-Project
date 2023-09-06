@@ -18,4 +18,4 @@ const isAuthenticated = async (req, res, next) => {
   next();
 };
 
-export { isAuthenticated };
+export default isAuthenticated;

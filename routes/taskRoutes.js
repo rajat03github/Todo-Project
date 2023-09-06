@@ -5,7 +5,7 @@ import {
   newTask,
   updateTask,
 } from "../controllers/taskController.js";
-import { isAuthenticated } from "../middlewares/Auth.js";
+import isAuthenticated from "../middlewares/Auth.js";
 
 const router = express.Router();
 
