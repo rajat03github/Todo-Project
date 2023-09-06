@@ -16,7 +16,7 @@ const newTask = async (req, res, next) => {
       message: "Task Added",
     });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
@@ -31,7 +31,7 @@ const getMyTask = async (req, res, next) => {
       tasks,
     });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
@@ -54,7 +54,7 @@ const updateTask = async (req, res, next) => {
       message: "Task updated",
     });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
@@ -71,7 +71,7 @@ const deleteTask = async (req, res, next) => {
       message: "Task Deleted",
     });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 

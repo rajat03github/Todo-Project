@@ -24,7 +24,7 @@ const registerUser = async (req, res) => {
     //send cookie here to access registered user directly login 'features.js' file have jwt access
     sendCookie(newUser, res, "Registered Successfully"); //features.js
   } catch (error) {
-    res.send(error);
+    next(error);
   }
 };
 
@@ -47,7 +47,7 @@ const loginUser = async (req, res, next) => {
     }
     sendCookie(user, res, `Welcome back , ${user.name}`); //features.js - jwt
   } catch (error) {
-    res.send(error);
+    next(error);
   }
 };
 const logoutUser = (req, res, next) => {
